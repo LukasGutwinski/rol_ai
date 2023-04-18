@@ -40,7 +40,6 @@ http.createServer((req, res) => {
 
 let result = await esbuild.build({
   ...config,
-  incremental: true,
   banner: {
     js: ' (() => new EventSource("http://localhost:8082").onmessage = () => location.reload())();',
   },
@@ -48,7 +47,12 @@ let result = await esbuild.build({
 
 chokidar.watch(watchDirectories).on('all', (event, path) => {
   if (path.includes("javascript")) {
-    result.rebuild()
+    esbuild.build({
+      ...config,
+      banner: {
+        js: ' (() => new EventSource("http://localhost:8082").onmessage = () => location.reload())();',
+      },
+    }).catch(() => process.exit(1));
   }
   clients.forEach((res) => res.write('data: update\n\n'))
   clients.length = 0

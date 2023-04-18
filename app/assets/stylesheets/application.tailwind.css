@@ -1,3 +1,105 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "buttons.css";
+@import "forms.css";
+
+body {
+    background-color: #F4F6F9;
+}
+
+.animated {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+  
+@-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+}
+  
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+}
+  
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+.light-font-big-heading {
+  @apply text-2xl font-thin mb-4
+}
+
+.card {
+  @apply p-6 mb-2 bg-white rounded-md border-solid border-2
+}
+
+.kebab-menu-action-item {
+  @apply no-underline block px-6 py-3 text-gray-800 bg-white hover:text-blue-500 transition ease-in-out duration-200
+}
+
+.plus-button {
+    @apply py-2 px-4 border border-gray-200 rounded inline-flex items-center hover:bg-gray-200 transition-all duration-500
+}
+
+#map-controls .choices {
+  width: 700px;
+  display: inline-block;
+  margin-bottom: -16px;
+}
+
+.pac-container {
+  z-index: 99999;
+}
+
+.alert {
+  @apply border border-gray-500 bg-gray-100 text-gray-700 p-4 rounded-lg font-sans;
+}
+
+.alert.alert-error {
+  @apply border-danger-500 bg-danger-100 text-danger-600;
+}
+
+.field_with_errors .form-control {
+  @apply border-danger-500;
+}
+
+.field_with_errors label {
+  @apply text-danger-600;
+}
+
+#note-content ul {
+  list-style-type: disc; 
+}
+
+#note-content ol {
+  list-style-type: decimal; 
+}
+
+#note-content li {
+  margin-left: 1em;
+}
+
+.leaflet-div-icon {
+  background: transparent!important;
+  border: none!important;
+}
+
+.table-responsive {
+  @apply block w-full overflow-scroll md:overflow-visible;
+  -webkit-overflow-scrolling: touch;
+}

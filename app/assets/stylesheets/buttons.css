@@ -1,0 +1,44 @@
+.button {
+    @apply inline-flex text-sm font-semibold text-center px-4 py-0 rounded no-underline items-center justify-between;
+
+    height: 40px;
+    line-height: 40px;
+    transition: ease 0.3s background, ease 0.3s transform, ease 0.2s color;
+}
+
+.button:hover,
+.button:focus {
+    @apply cursor-pointer;
+}
+
+.button-small {
+    @apply px-4;
+  
+    height: 32px;
+    line-height: 32px;
+}
+  
+.button-large {
+    @apply text-base px-6;
+  
+    height: 48px;
+    line-height: 48px;
+}
+  
+.button-primary {
+    @apply bg-dark-blue text-white; 
+}
+
+.button-primary:hover,
+.button-primary:focus {
+    @apply bg-light-blue text-white;
+}
+  
+.button-primary.outline {
+    @apply bg-transparent border border-dark-blue text-dark-blue shadow-none;
+}
+
+.button-primary:hover,
+.button-primary:focus {
+    @apply bg-dark-blue text-white;
+}

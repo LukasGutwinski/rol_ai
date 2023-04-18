@@ -1,0 +1,40 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Export") do |sheet|
+  header_row = []
+  header_row << "Domain"
+  header_row << "Theme"
+  header_row << "Sub Theme"
+  header_row << "Text Title"
+  header_row << "Article Title"
+  header_row << "Requirement"
+  header_row << "Status"
+
+  @articles.first.responses.each do |response|
+    header_row << "Prompt"
+    header_row << "Response"
+    header_row << "Model"
+    header_row << "Costs"
+  end
+
+  sheet.add_row header_row.reject(&:nil?)
+
+  @articles.each do |article|
+    table_row = []
+    table_row << article.domain
+    table_row << article.theme
+    table_row << article.sub_theme
+    table_row << article.text_title
+    table_row << article.article_title
+    table_row << article.requirement
+    table_row << article.status
+
+    article.responses.each do |response|
+      table_row << response.prompt_content
+      table_row << response.response
+      table_row << response.model
+      table_row << response.total_costs
+    end
+    
+    sheet.add_row table_row.reject(&:nil?)
+  end
+end

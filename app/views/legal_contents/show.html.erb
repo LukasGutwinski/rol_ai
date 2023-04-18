@@ -1,0 +1,37 @@
+<div class="container px-10 py-6 mx-auto" data-controller="modal" data-modal-prevent-default-action-opening="false">
+    <h1 class="text-lg mb-2 font-bold"><%= @legal_content.title %></h1>
+    <% @prompts.each do |prompt| %>
+        <div class="card">
+            <%= prompt.title %>
+            <%= link_to "Edit", edit_prompt_path(prompt, legal_content_id: @legal_content.id), data: { turbo_frame: "modal_content", action: "click->modal#open"} %>
+            <%= link_to "Show", prompt_path(prompt, legal_content_id: @legal_content.id), data: { turbo_frame: "modal_content", action: "click->modal#open"} %>
+        </div>
+    <% end %>
+
+
+    <%= link_to "New Prompt", new_prompt_path(legal_content_id: @legal_content.id), data: { turbo_frame: "modal_content", action: "click->modal#open"} %><br><br>
+    <%= link_to legal_content_path(@legal_content, request.parameters.merge({format: :xlsx})) do%>
+        <span class="inline-block text-sm mr-8">Als Excel exportieren</span>
+    <% end %><br>
+
+    <% @articles.each do |article| %>
+        <%= article.domain %><br>
+        <%= article.theme %><br>
+        <%= article.sub_theme %><br>
+        <%= article.text_title %><br>
+        <%= article.article_title %><br>
+        <%= article.requirement %><br>
+        <%= article.status %>
+        <br>
+        <br>
+        <% article.responses.each do |response| %>
+            Prompt: <%= response.prompt_content %><br>
+            Response: <%= response.response %><br>
+            Model: <%= response.model %><br>
+            Costs: <%= response.total_costs %>
+            <br>
+            <br>
+        <% end %>
+    <% end %>
+    <%= render 'shared/modal' %>
+</div>

@@ -1,0 +1,7 @@
+<div class="rounded bg-white border p-4 border-gray-200 flex justify-between mb-2">
+    <%= link_to legal_content.title, legal_content_path(legal_content), class:"font-bold" %>
+    <div>
+        <%= link_to 'Edit', edit_legal_content_path(legal_content), data: { turbo_frame: "modal_content", action: "click->modal#open"} %>
+        <%= link_to 'Destroy', legal_content, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+</div>

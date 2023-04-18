@@ -1,0 +1,14 @@
+<div data-modal-target="container" data-action="keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+    <!-- Modal Inner Container -->
+    <div class="max-w-lg max-h-full w-full relative">
+        <!-- Modal Card -->
+        <div class="m-1 bg-white rounded shadow">
+            <div class="p-8">
+                <div data-action="click->modal#close" class="absolute top-0 right-0 m-6 text-secondary-900 cursor-pointer">
+                    <%= inline_svg_tag "icons/close", class: "w-4 h-4 fill-current" %>
+                </div>
+                <%= turbo_frame_tag "modal_content" %>
+            </div>
+        </div>
+    </div>
+</div>
