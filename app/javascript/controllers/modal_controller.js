@@ -33,6 +33,12 @@ export default class extends Controller {
   
   }
 
+  submitEnd(e) {
+    if (e.detail.success) {
+      this.close()
+    }
+  }
+
   disconnect() {
     this.close();
   }

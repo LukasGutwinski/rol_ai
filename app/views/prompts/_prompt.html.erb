@@ -1,0 +1,10 @@
+<div class="card">
+    <div class="flex">
+        <%= prompt.title %>
+        <div class="flex">
+            <%= link_to "Edit", edit_prompt_path(prompt, legal_content_id: @legal_content.id), data: { turbo_frame: "modal_content", action: "click->modal#open"}, class:"ml-2" %>
+            <%= link_to "Show", prompt_path(prompt), data: { turbo_frame: "modal_content", action: "click->modal#open"}, class: "ml-2"%>
+            <%= button_to "Delete", prompt_path(prompt), method: :delete, data: {"turbo-confirm": "Are you sure?"}, class:"inline ml-2"%>
+        </div>
+    </div>
+</div>

@@ -3,12 +3,10 @@ class Response < ApplicationRecord
     belongs_to :prompt
 
     def self.calculate_total_costs(model, total_tokens)
-        if model == "gpt-3.5-turbo"
-            total_tokens.to_f / 1000 * 0.002
-        end
+        "-"
     end
 
-    def self.perform_request(prompt_content, prompt_id, model, article_id)
+    def self.perform_request(prompt_content, prompt_id, model, temperature, article_id)
         response = HTTParty.post(
             "https://api.openai.com/v1/chat/completions",
             headers: {
@@ -17,13 +15,15 @@ class Response < ApplicationRecord
             },
             body: JSON[{
                 "model" => model,
+                "temperature" => temperature.to_f,
                 "messages" => [
                     {"role": "user", "content": prompt_content}
                 ]
             }]
         )
-        response_body = JSON.parse(response.body)
-        Response.create(
+        p response_body = JSON.parse(response.body)
+        
+        Response.create!(
             article_id: article_id,
             prompt_id: prompt_id,
             prompt_content: prompt_content,
@@ -32,6 +32,7 @@ class Response < ApplicationRecord
             total_tokens: response_body["usage"]["total_tokens"],
             total_costs: calculate_total_costs(model, response_body["usage"]["total_tokens"]),
             model: model,
+            temperature: temperature,
             response: response_body["choices"][0]["message"]["content"]
         )
     end

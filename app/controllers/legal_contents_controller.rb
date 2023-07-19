@@ -2,7 +2,7 @@ class LegalContentsController < ApplicationController
     before_action :set_legal_content, only: [:show, :edit, :update, :destroy]
 
     def index
-        @legal_contents = LegalContent.includes(articles: :responses).all
+        @legal_contents = LegalContent.includes(articles: {responses: :prompt}).all
     end
 
     def show
@@ -38,11 +38,13 @@ class LegalContentsController < ApplicationController
     end
 
     def update
-
+        @legal_content.update(legal_content_params)
+        redirect_to legal_contents_path
     end
 
     def destroy
-
+        @legal_content.destroy
+        redirect_to legal_contents_path, notice: "Legal Content was successfully deleted."
     end
 
     private

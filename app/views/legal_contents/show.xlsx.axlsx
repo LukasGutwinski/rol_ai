@@ -9,11 +9,15 @@ wb.add_worksheet(name: "Export") do |sheet|
   header_row << "Requirement"
   header_row << "Status"
 
+  ordered_prompt_ids = []
+
   @articles.first.responses.each do |response|
-    header_row << "Prompt"
-    header_row << "Response"
-    header_row << "Model"
-    header_row << "Costs"
+    ordered_prompt_ids << response.prompt.id
+    header_row << "#{response.prompt.title} - Prompt"
+    header_row << "#{response.prompt.title} - Response"
+    header_row << "#{response.prompt.title} - Model"
+    header_row << "#{response.prompt.title} - Temperature"
+    header_row << "#{response.prompt.title} - Costs"
   end
 
   sheet.add_row header_row.reject(&:nil?)
@@ -28,11 +32,29 @@ wb.add_worksheet(name: "Export") do |sheet|
     table_row << article.requirement
     table_row << article.status
 
+    # Create a hash to store the responses with their prompt_id as the key
+    response_hash = {}
     article.responses.each do |response|
-      table_row << response.prompt_content
-      table_row << response.response
-      table_row << response.model
-      table_row << response.total_costs
+      response_hash[response.prompt.id] = response
+    end
+
+    # Iterate over the ordered_prompt_ids and add the responses in the desired order
+    ordered_prompt_ids.each do |prompt_id|
+      response = response_hash[prompt_id]
+      if response
+        table_row << response.prompt_content
+        table_row << response.response
+        table_row << response.model
+        table_row << response.temperature
+        table_row << response.total_costs
+      else
+        # Add empty values if the response is not found for the current prompt_id
+        table_row << nil
+        table_row << nil
+        table_row << nil
+        table_row << nil
+        table_row << nil
+      end
     end
     
     sheet.add_row table_row.reject(&:nil?)

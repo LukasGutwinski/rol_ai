@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="flex flex-wrap text-sm text-light-purple font-semibold items-center">
+        <%= article.domain %> 
+        <%= inline_svg_tag "icons/right-arrow", class: "inline-block w-2 h-2 fill-current" %>
+        <%= article.theme %>
+        <%= inline_svg_tag "icons/right-arrow", class: "inline-block w-2 h-2 fill-current" %>
+        <%= article.sub_theme %>
+    </div>
+    <div class="mt-2 text-sm text-light-purple font-semibold">
+        Text Title
+    </div>
+    <%= article.text_title %>
+    
+    <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+        Article Title
+    </div>
+    <%= article.article_title %>
+    <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+        Requirement
+    </div>
+    <%= article.requirement %>
+    <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+        Status
+    </div>
+    <%= article.status %>
+    
+    <% if  article.responses.any? %>
+        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+    <% end %>
+
+    <% article.responses.each do |response| %>
+        <div data-controller="accordion" data-action="click->accordion#toggle">
+            <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+                <%= response.prompt.title %>
+            </div>
+            <%= response.response %>
+            <div data-accordion-target="content" class="hidden border-t-2 border-b-2 border-gray-200">
+                <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+                    Prompt
+                </div>
+                <%= response.prompt_content %>
+                <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+                    Model
+                </div>
+                    <%= response.model %>
+                <div class="mt-2 text-sm text-light-purple light-purple font-semibold">
+                    Costs
+                </div>
+                    <%= response.total_costs %>
+            </div>
+        </div>
+    <% end %>
+</div>
