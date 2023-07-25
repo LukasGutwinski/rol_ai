@@ -17,7 +17,6 @@ wb.add_worksheet(name: "Export") do |sheet|
     header_row << "#{response.prompt.title} - Response"
     header_row << "#{response.prompt.title} - Model"
     header_row << "#{response.prompt.title} - Temperature"
-    header_row << "#{response.prompt.title} - Costs"
   end
 
   sheet.add_row header_row.reject(&:nil?)
@@ -45,15 +44,13 @@ wb.add_worksheet(name: "Export") do |sheet|
         table_row << response.prompt_content
         table_row << response.response
         table_row << response.model
-        table_row << response.temperature
-        table_row << response.total_costs
+        table_row << response.temperature.to_f
       else
         # Add empty values if the response is not found for the current prompt_id
-        table_row << nil
-        table_row << nil
-        table_row << nil
-        table_row << nil
-        table_row << nil
+        table_row << ""
+        table_row << ""
+        table_row << ""
+        table_row << ""
       end
     end
     

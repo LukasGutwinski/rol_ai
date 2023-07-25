@@ -1,4 +1,9 @@
 <%= turbo_frame_tag "modal_content" do %>
+    <style>
+        p {
+            margin-top: 14px!important;
+        }
+    </style>
     <h1 class="light-font-big-heading"><%= @prompt.title %></h1>
-    <%= @prompt.content %>
+    <%= simple_format(@prompt.content) %>
 <% end %>

@@ -9,10 +9,16 @@
             <%= link_to "New Prompt", new_prompt_path(legal_content_id: @legal_content.id), data: { turbo_frame: "modal_content", action: "click->modal#open"}, class:"plus-button" %>
         </div>
     </div>
+    <div class="font-semibold text-lg mt-4 mb-2">
+        Prompts
+    </div>
     <div id="prompts">
         <%= render partial: "prompts/prompt", collection: @prompts, as: :prompt %>
     </div>
 
+    <div class="font-semibold text-lg mt-4 mb-2">
+        Content
+    </div>
     <%= render partial: "article", collection: @articles, as: :article %>
 
     <%= render 'shared/modal' %>
